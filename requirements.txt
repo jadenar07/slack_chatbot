@@ -155,3 +155,7 @@ websockets==10.4
 wrapt==1.16.0
 yarl==1.16.0
 zipp==3.20.2
+sentence-transformers==2.3.0
+torch==2.3.1
+PyNaCl==1.5.0
+

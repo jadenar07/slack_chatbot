@@ -1,19 +1,21 @@
 import os, asyncio
 from openai import OpenAI
-from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain.prompts import PromptTemplate
 from langchain.chains import RetrievalQA
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings.sentence_transformer import SentenceTransformerEmbeddings
-
+from langchain_core.caches import BaseCache
 from utlis.config import OPENAI_API_KEY, DB_PATH, DISTANCE_THRESHOLD
 
 llm = ChatOpenAI(
     temperature=0,
     model_name="gpt-3.5-turbo",
     max_tokens=500,
-    openai_api_key=OPENAI_API_KEY
+    openai_api_key=OPENAI_API_KEY,
+    cache=None
 )
+
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
