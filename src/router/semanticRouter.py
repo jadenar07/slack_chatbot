@@ -1,5 +1,6 @@
-from semantic_router import Route, RouteLayer
-from semantic_router.encoders import OpenAIEncoder
+from semantic_router import Route
+from semantic_router.routers import SemanticRouter as AurelioSemanticRouter
+from semantic_router.encoders import LocalEncoder
 import os, sys, logging, inspect 
 
 # Adding path to ensure utils and backend are detected
@@ -20,7 +21,7 @@ class SemanticRouter:
         
         # Set up variables
         self.crud = crud
-        self.encoder = OpenAIEncoder()
+        self.encoder = LocalEncoder()
         self._setup_routes()
         
     def _setup_routes(self):
@@ -47,12 +48,13 @@ class SemanticRouter:
         )
 
         # Define Route Layer
-        self.route_layer = RouteLayer(encoder=self.encoder, routes=[
+        self.route_layer = AurelioSemanticRouter(encoder=self.encoder, routes=[
             self.progress_report_rt,
             self.problem_solve_rt,
             self.material_info_rt,
             self.mental_support_rt,
-        ])
+        ], auto_sync="local")
+
         
         # Setup response mapping
         self.route_responses = {
